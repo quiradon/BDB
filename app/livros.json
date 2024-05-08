@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "titulo": "Aventuras de pelorim",
+    "autor": "Pelorim",
+    "editora": "123",
+    "tags": "HQs,Espiritualidade",
+    "isbn": "123"
+  },
+  {
+    "id": 3,
+    "titulo": "Ordem Paranormal",
+    "autor": "Celbo",
+    "editora": "Jamba",
+    "tags": "Infanto-Juvenil,Autoajuda,Potiguar",
+    "isbn": "12"
+  },
+  {
+    "id": 4,
+    "titulo": "Petrolina",
+    "autor": "Luiz gonzaga",
+    "editora": "Aylerium",
+    "tags": "Contos,Poesia,Nordestino",
+    "isbn": "87567890312"
+  }
+]

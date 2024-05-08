@@ -1,0 +1,80 @@
+{
+  "name": "book-db",
+  "description": "Starter for your electron + sqlite application",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "app/index.js",
+  "build": {
+    "files": [
+      "app/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ]
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "build",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.4.2",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
+    "electron": "^26.1.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jquery": "^3.7.0",
+    "node": "^20.5.1",
+    "sqlite3": "^5.1.6"
+  },
+  "config" : {
+    "forge": {
+      "packagerConfig": {
+        "icon": "/app/assets/icon.png",
+        "asar": true,
+        "extraResource": [
+          "app/assets"
+        ],
+        "extraMetadata": {
+          "main": "app/index.js"
+        }
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "book-db",
+            "authors": "Quiradon",
+            "setupIcon": "app/assets/icon.png"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {
+            "options": {
+              "name": "book-db",
+              "productDescription": "A simple book database",
+              "icon": "app/assets/icon.png"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

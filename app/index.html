@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Kraken Book DB</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="assets/css_bootstrap-select.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand sticky-top bg-body py-3" style="box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.52);">
+        <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                        <path d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path>
+                    </svg></span><span>Book DB</span></a>
+            <div class="collapse navbar-collapse d-md-flex d-lg-flex justify-content-end" id="navcol-1"><button class="btn btn-primary d-md-flex align-items-md-center" type="button" data-bs-target="#menu" data-bs-toggle="offcanvas"><strong>Menu de Opções&nbsp;</strong><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                        <path d="M352 96C352 110.3 348.9 123.9 343.2 136.2L396 227.4C372.3 252.7 341.9 271.5 307.6 281L256 192H255.1L187.9 309.5C209.4 316.3 232.3 320 256 320C326.7 320 389.8 287.3 430.9 235.1C441.9 222.2 462.1 219.1 475.9 231C489.7 242.1 491.9 262.2 480.8 276C428.1 341.8 346.1 384 256 384C220.6 384 186.6 377.6 155.3 365.9L98.65 463.7C93.95 471.8 86.97 478.4 78.58 482.6L23.16 510.3C18.2 512.8 12.31 512.5 7.588 509.6C2.871 506.7 0 501.5 0 496V440.6C0 432.2 2.228 423.9 6.46 416.5L66.49 312.9C53.66 301.6 41.84 289.3 31.18 276C20.13 262.2 22.34 242.1 36.13 231C49.92 219.1 70.06 222.2 81.12 235.1C86.79 243.1 92.87 249.8 99.34 256.1L168.8 136.2C163.1 123.9 160 110.3 160 96C160 42.98 202.1 0 256 0C309 0 352 42.98 352 96L352 96zM256 128C273.7 128 288 113.7 288 96C288 78.33 273.7 64 256 64C238.3 64 224 78.33 224 96C224 113.7 238.3 128 256 128zM372.1 393.9C405.5 381.1 435.5 363.2 461.8 341L505.5 416.5C509.8 423.9 512 432.2 512 440.6V496C512 501.5 509.1 506.7 504.4 509.6C499.7 512.5 493.8 512.8 488.8 510.3L433.4 482.6C425 478.4 418.1 471.8 413.3 463.7L372.1 393.9z"></path>
+                    </svg></button></div>
+        </div>
+    </nav>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="alerts">
+        <div class="toast fade text-bg-danger border-0 align-items-center hide" role="alert" id="liveToast" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><span id="texto-alerta"> Mensagem de Erro</span></div><button class="btn-close m-auto btn-close-white me-2" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand fixed-bottom bg-body" style="box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.52);">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navcol-2">
+                <div class="container d-flex justify-content-between align-items-baseline justify-content-xl-center align-items-xl-center"><input type="text" id="search" class="form-control ps-4 pe-4 rounded-pill m-1" name="search" placeholder="Pesquisar..."><button class="btn btn-outline-primary ps-3 pe-3 rounded-pill m-1" id="search-btn" type="submit"><i class="fa fa-search"></i></button></div>
+            </div>
+        </div>
+    </nav>
+    <div class="offcanvas offcanvas-end bg-body shadow-lg" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" id="menu">
+        <div class="offcanvas-header"><a class="link-body-emphasis d-flex align-items-center me-md-auto mb-3 mb-md-0 text-decoration-none" href="/"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                        <path d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path>
+                    </svg></span><span class="fs-4">Book DB</span></a><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="offcanvas"></button></div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between pt-0">
+            <div>
+                <hr class="mt-0">
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item" id="btn-books"><a class="nav-link active link-body-emphasis" id="btn-a-books" aria-current="page" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="me-2">
+                                <path d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path>
+                            </svg> Livros</a></li>
+                    <li class="nav-item" id="btn-leitores"><a class="nav-link link-body-emphasis" id="btn-a-leitores" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor" class="me-2">
+                                <path d="M256 288c79.53 0 144-64.47 144-144s-64.47-144-144-144c-79.52 0-144 64.47-144 144S176.5 288 256 288zM351.1 320H160c-88.36 0-160 71.63-160 160c0 17.67 14.33 32 31.1 32H480c17.67 0 31.1-14.33 31.1-32C512 391.6 440.4 320 351.1 320z"></path>
+                            </svg>&nbsp;Leitores</a></li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-between align-items-center align-content-center"><button class="btn btn-primary m-1" type="button" data-bs-target="#Livro" data-bs-toggle="modal">Adicionar Livro&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="me-2" style="margin-right: 13px;font-size: 18px;">
+                        <path d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path>
+                    </svg></button><button class="btn btn-primary m-1" type="button" data-bs-target="#Leitor" data-bs-toggle="modal">Adicionar Leitor&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor" class="me-2">
+                        <path d="M256 288c79.53 0 144-64.47 144-144s-64.47-144-144-144c-79.52 0-144 64.47-144 144S176.5 288 256 288zM351.1 320H160c-88.36 0-160 71.63-160 160c0 17.67 14.33 32 31.1 32H480c17.67 0 31.1-14.33 31.1-32C512 391.6 440.4 320 351.1 320z"></path>
+                    </svg></button></div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Leitor">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <path d="M272 304h-96C78.8 304 0 382.8 0 480c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32C448 382.8 369.2 304 272 304zM48.99 464C56.89 400.9 110.8 352 176 352h96c65.16 0 119.1 48.95 127 112H48.99zM224 256c70.69 0 128-57.31 128-128c0-70.69-57.31-128-128-128S96 57.31 96 128C96 198.7 153.3 256 224 256zM224 48c44.11 0 80 35.89 80 80c0 44.11-35.89 80-80 80S144 172.1 144 128C144 83.89 179.9 48 224 48z"></path>
+                        </svg>Adicionar Leitor</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Nome:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="leitor-nome" placeholder="João" required="" minlength="1" autocomplete="off">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Contato:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="leitor-contato" placeholder="(84) 1234-5678 | exemplo@email.com" required="" minlength="1" autocomplete="off">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Turma:&nbsp;</span></p><select class="bg-dark form-select form-select-sm selectpicker p-0" id="leitor-turma" data-live-search="true" data-width="100%" data-bs-theme="dark" data-style="btn-dark">
+                            <option value="1A-ND" selected="">1A - Nutrição</option>
+                            <option value="1A-MA" selected="">1A - Meio Ambiente</option>
+                            <option value="1B-ND">1B - Nutrição</option>
+                            <option value="1B-ND">1B - Meio Ambiente</option>
+                            <option value="2A-ND">2A - Nutrição</option>
+                            <option value="2A-MA">2A - Meio Ambiente</option>
+                            <option value="2B-ND">2B - Nutrição</option>
+                            <option value="2B-MA">2B - Meio Ambiente</option>
+                            <option value="3A-ND">3A - Nutrição</option>
+                            <option value="3A-MA">3A - Meio Ambiente</option>
+                            <option value="3B-ND">3B - Nutrição</option>
+                            <option value="3B-MA">3B - Meio Ambiente</option>
+                        </select>
+                        <div class="col d-xl-flex justify-content-xl-end" style="text-align: right;"><button class="btn btn-primary d-xl-flex align-items-xl-center mt-4" id="leitor-add-salvar" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="m-1">
+                                    <path d="M433.1 129.1l-83.9-83.9C342.3 38.32 327.1 32 316.1 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V163.9C448 152.9 441.7 137.7 433.1 129.1zM224 416c-35.34 0-64-28.66-64-64s28.66-64 64-64s64 28.66 64 64S259.3 416 224 416zM320 208C320 216.8 312.8 224 304 224h-224C71.16 224 64 216.8 64 208v-96C64 103.2 71.16 96 80 96h224C312.8 96 320 103.2 320 112V208z"></path>
+                                </svg>Salvar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Leitor-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <path d="M272 304h-96C78.8 304 0 382.8 0 480c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32C448 382.8 369.2 304 272 304zM48.99 464C56.89 400.9 110.8 352 176 352h96c65.16 0 119.1 48.95 127 112H48.99zM224 256c70.69 0 128-57.31 128-128c0-70.69-57.31-128-128-128S96 57.31 96 128C96 198.7 153.3 256 224 256zM224 48c44.11 0 80 35.89 80 80c0 44.11-35.89 80-80 80S144 172.1 144 128C144 83.89 179.9 48 224 48z"></path>
+                        </svg>&nbsp;Editar Leitor</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Nome:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="leitor-nome-1" placeholder="João" required="" minlength="1" autocomplete="off">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Contato:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="leitor-contato-1" placeholder="(84) 1234-5678 | exemplo@email.com" required="" minlength="1" autocomplete="off">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Turma:&nbsp;</span></p><select class="bg-dark form-select form-select-sm selectpicker p-0" id="leitor-turma-1" data-live-search="true" data-width="100%" data-bs-theme="dark" data-style="btn-dark">
+                            <option value="1A-ND" selected="">1A - Nutrição</option>
+                            <option value="1A-MA" selected="">1A - Meio Ambiente</option>
+                            <option value="1B-ND">1B - Nutrição</option>
+                            <option value="1B-ND">1B - Meio Ambiente</option>
+                            <option value="2A-ND">2A - Nutrição</option>
+                            <option value="2A-MA">2A - Meio Ambiente</option>
+                            <option value="2B-ND">2B - Nutrição</option>
+                            <option value="2B-MA">2B - Meio Ambiente</option>
+                            <option value="3A-ND">3A - Nutrição</option>
+                            <option value="3A-MA">3A - Meio Ambiente</option>
+                            <option value="3B-ND">3B - Nutrição</option>
+                            <option value="3B-MA">3B - Meio Ambiente</option>
+                        </select>
+                        <div class="col d-xl-flex justify-content-xl-end" style="text-align: right;"><button class="btn btn-primary d-xl-flex align-items-xl-center mt-4" id="leitor-add-salvar-1" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="m-1">
+                                    <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                    <path d="M433.1 129.1l-83.9-83.9C342.3 38.32 327.1 32 316.1 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V163.9C448 152.9 441.7 137.7 433.1 129.1zM224 416c-35.34 0-64-28.66-64-64s28.66-64 64-64s64 28.66 64 64S259.3 416 224 416zM320 208C320 216.8 312.8 224 304 224h-224C71.16 224 64 216.8 64 208v-96C64 103.2 71.16 96 80 96h224C312.8 96 320 103.2 320 112V208z"></path>
+                                </svg>Salvar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Livro">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <path d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path>
+                        </svg>&nbsp;Adicionar Livro</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Nome:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-name" required="" minlength="1" autocomplete="on" inputmode="verbatim" placeholder="Grimorio de Inanimalia Fortuna">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Autor:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-autor" required="" minlength="1" autocomplete="on" inputmode="verbatim" placeholder="Inanimalia">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Editora:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-editora" required="" minlength="1" autocomplete="on" inputmode="verbatim" placeholder="Arkanus">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">ISBN:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-isbn" placeholder="000.000.000-00" required="" minlength="1" autocomplete="off">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Tags:&nbsp;</span></p><select class="bg-dark form-select form-select-sm selectpicker p-0" id="book-tags" data-live-search="true" data-width="100%" data-bs-theme="dark" multiple="" data-max-options="3" data-style="btn-dark" required="">
+                            <option value="Enem-Estudos">Enem &amp; Concursos</option>
+                            <option value="Petrolina">Petrolina</option>
+                            <option value="D&amp;P">Direito &amp; Política</option>
+                            <option value="Meio Ambiente">Meio Ambiente</option>
+                            <option value="Diversos">Diversos</option>
+                            <option value="Dicionários">Dicionários</option>
+                            <option value="Enciclopédias">Enciclopédias</option>
+                            <option value="Sequências">Sequências</option>
+                            <option value="Contos">Contos</option>
+                            <option value="Romance">Romance</option>
+                            <option value="InfantoJuvenil">InfantoJuvenil</option>
+                            <option value="HQs">HQs</option>
+                            <option value="Espiritualidade">Espiritualidade</option>
+                            <option value="Poesia">Poesia</option>
+                            <option value="Empreendedorismo">Empreendedorismo</option>
+                            <option value="Crônicas">Crônicas</option>
+                            <option value="Biografias">Biografias</option>
+                            <option value="Educação &amp; Adm">Educação &amp; Adm</option>
+                            <option value="Nutrição &amp; Medicina">Nutrição &amp; Medicina</option>
+                            <option value="Ficção">Ficção</option>
+                            <option value="Informática &amp; TI">Informática &amp; TI</option>
+                            <option value="Literatura">Literatura</option>
+                            <option value="Cordel">Cordel</option>
+                            <option value="Biologia">Biologia</option>
+                            <option value="História">História</option>
+                            <option value="Geografia">Geografia</option>
+                            <option value="Filosofia">Filosofia</option>
+                            <option value="Sociologia">Sociologia</option>
+                            <option value="Artes">Artes</option>
+                            <option value="Química">Química</option>
+                            <option value="Física">Física</option>
+                            <option value="Matematica">Matematica</option>
+                            <option value="língua espanhola">língua espanhola</option>
+                            <option value="Língua Inglesa">Língua Inglesa</option>
+                            <option value="Língua portuguesa">Língua portuguesa</option>
+                            <option value="Revistas">Revistas</option>
+                            <option value="RN">RN</option>
+                            <option value="João Faustino">João Faustino</option>
+                            <option value="Acervo Secreto">Acervo Secreto</option>
+                        </select>
+                        <div class="col d-xl-flex justify-content-xl-end"><button class="btn btn-primary d-xl-flex align-items-xl-center mt-4" id="book-salvar" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="m-1">
+                                    <path d="M433.1 129.1l-83.9-83.9C342.3 38.32 327.1 32 316.1 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V163.9C448 152.9 441.7 137.7 433.1 129.1zM224 416c-35.34 0-64-28.66-64-64s28.66-64 64-64s64 28.66 64 64S259.3 416 224 416zM320 208C320 216.8 312.8 224 304 224h-224C71.16 224 64 216.8 64 208v-96C64 103.2 71.16 96 80 96h224C312.8 96 320 103.2 320 112V208z"></path>
+                                </svg>Salvar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Livro-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <path d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path>
+                        </svg>&nbsp;Adicionar Livro</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Nome:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-name-1" required="" minlength="1" autocomplete="on" inputmode="verbatim" placeholder="Grimorio de Inanimalia Fortuna">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Autor:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-autor-1" required="" minlength="1" autocomplete="on" inputmode="verbatim" placeholder="Inanimalia">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Editora:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-editora-1" required="" minlength="1" autocomplete="on" inputmode="verbatim" placeholder="Arkanus">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">ISBN:&nbsp;</span></p><input class="form-control form-control-sm" type="text" id="book-isbn-1" placeholder="000.000.000-00" required="" minlength="1" autocomplete="off">
+                        <p class="text-start" style="margin-bottom:5px;font-weight:bold;"><span style="font-weight: normal !important;">Tags:&nbsp;</span></p><select class="bg-dark form-select form-select-sm selectpicker p-0" id="book-tags-1" data-live-search="true" data-width="100%" data-bs-theme="dark" multiple="" data-max-options="3" data-style="btn-dark" required="">
+                            <option value="Enem-Estudos">Enem &amp; Concursos</option>
+                            <option value="Petrolina">Petrolina</option>
+                            <option value="D&amp;P">Direito &amp; Política</option>
+                            <option value="Meio Ambiente">Meio Ambiente</option>
+                            <option value="Diversos">Diversos</option>
+                            <option value="Dicionários">Dicionários</option>
+                            <option value="Enciclopédias">Enciclopédias</option>
+                            <option value="Sequências">Sequências</option>
+                            <option value="Contos">Contos</option>
+                            <option value="Romance">Romance</option>
+                            <option value="InfantoJuvenil">InfantoJuvenil</option>
+                            <option value="HQs">HQs</option>
+                            <option value="Espiritualidade">Espiritualidade</option>
+                            <option value="Poesia">Poesia</option>
+                            <option value="Empreendedorismo">Empreendedorismo</option>
+                            <option value="Crônicas">Crônicas</option>
+                            <option value="Biografias">Biografias</option>
+                            <option value="Educação &amp; Adm">Educação &amp; Adm</option>
+                            <option value="Nutrição &amp; Medicina">Nutrição &amp; Medicina</option>
+                            <option value="Ficção">Ficção</option>
+                            <option value="Informática &amp; TI">Informática &amp; TI</option>
+                            <option value="Literatura">Literatura</option>
+                            <option value="Cordel">Cordel</option>
+                            <option value="Biologia">Biologia</option>
+                            <option value="História">História</option>
+                            <option value="Geografia">Geografia</option>
+                            <option value="Filosofia">Filosofia</option>
+                            <option value="Sociologia">Sociologia</option>
+                            <option value="Artes">Artes</option>
+                            <option value="Química">Química</option>
+                            <option value="Física">Física</option>
+                            <option value="Matematica">Matematica</option>
+                            <option value="língua espanhola">língua espanhola</option>
+                            <option value="Língua Inglesa">Língua Inglesa</option>
+                            <option value="Língua portuguesa">Língua portuguesa</option>
+                            <option value="Revistas">Revistas</option>
+                            <option value="RN">RN</option>
+                            <option value="João Faustino">João Faustino</option>
+                            <option value="Acervo Secreto">Acervo Secreto</option>
+                        </select>
+                        <div class="col d-xl-flex justify-content-xl-end"><button class="btn btn-primary d-xl-flex align-items-xl-center mt-4" id="book-salvar-1" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="m-1">
+                                    <path d="M433.1 129.1l-83.9-83.9C342.3 38.32 327.1 32 316.1 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V163.9C448 152.9 441.7 137.7 433.1 129.1zM224 416c-35.34 0-64-28.66-64-64s28.66-64 64-64s64 28.66 64 64S259.3 416 224 416zM320 208C320 216.8 312.8 224 304 224h-224C71.16 224 64 216.8 64 208v-96C64 103.2 71.16 96 80 96h224C312.8 96 320 103.2 320 112V208z"></path>
+                                </svg>Salvar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Emprestimo">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <path d="M384 0H96C60.65 0 32 28.65 32 64v384c0 35.35 28.65 64 64 64h288c35.35 0 64-28.65 64-64V64C448 28.65 419.3 0 384 0zM240 128c35.35 0 64 28.65 64 64s-28.65 64-64 64c-35.34 0-64-28.65-64-64S204.7 128 240 128zM336 384h-192C135.2 384 128 376.8 128 368C128 323.8 163.8 288 208 288h64c44.18 0 80 35.82 80 80C352 376.8 344.8 384 336 384zM496 64H480v96h16C504.8 160 512 152.8 512 144v-64C512 71.16 504.8 64 496 64zM496 192H480v96h16C504.8 288 512 280.8 512 272v-64C512 199.2 504.8 192 496 192zM496 320H480v96h16c8.836 0 16-7.164 16-16v-64C512 327.2 504.8 320 496 320z"></path>
+                        </svg>&nbsp;Realizar Emprestimo</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p class="mb-2">Livro:&nbsp;<strong id="nome_placeholder">Bold</strong></p>
+                        <p class="mb-2">Leitor</p><select class="form-select selectpicker p-0" id="seletor-leitor" data-live-search="true" data-width="100%" data-bs-theme="dark" data-max-options="1" data-style="btn-dark" required="">
+                            <option value="0">teste</option>
+                        </select>
+                        <p class="mb-2">Prazo de Devolução</p><select class="form-select" id="placeholder_tempo">
+                            <option value="7" selected="">7 Dias</option>
+                            <option value="15">15 Dias</option>
+                            <option value="30">1 Mês</option>
+                        </select>
+                    </form>
+                    <div class="row">
+                        <div class="col text-end mt-5"><button class="btn btn-primary" id="emprestar-btn" type="button">Emprestar</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Devolucao-modal">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <path d="M384 0H96C60.65 0 32 28.65 32 64v384c0 35.35 28.65 64 64 64h288c35.35 0 64-28.65 64-64V64C448 28.65 419.3 0 384 0zM240 128c35.35 0 64 28.65 64 64s-28.65 64-64 64c-35.34 0-64-28.65-64-64S204.7 128 240 128zM336 384h-192C135.2 384 128 376.8 128 368C128 323.8 163.8 288 208 288h64c44.18 0 80 35.82 80 80C352 376.8 344.8 384 336 384zM496 64H480v96h16C504.8 160 512 152.8 512 144v-64C512 71.16 504.8 64 496 64zM496 192H480v96h16C504.8 288 512 280.8 512 272v-64C512 199.2 504.8 192 496 192zM496 320H480v96h16c8.836 0 16-7.164 16-16v-64C512 327.2 504.8 320 496 320z"></path>
+                        </svg>&nbsp;Devolução</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p class="mb-2">Livro:&nbsp;<strong id="nome_placeholder-devolucao">Bold</strong></p>
+                        <p class="mb-2">Leitor:&nbsp;<strong id="nome_placeholder-devolucao_leitor">Bold</strong></p>
+                        <p class="mb-2">Data do Emprestimo:&nbsp;<strong id="nome_placeholder-devolucao_data_inicial">Bold</strong></p>
+                        <p class="mb-2">Data Final:&nbsp;<strong class="text-danger" id="nome_placeholder-devolucao_data_final">Bold</strong></p>
+                    </form>
+                    <div class="row">
+                        <div class="col text-end mt-5"><button class="btn btn-primary m-2" id="FunctionDevolverLivro" type="button" data-bs-target="#Devolucao-modal" data-bs-toggle="modal">Devolução</button><button class="btn btn-primary m-2" type="button" data-bs-target="#Devolucao-modal" data-bs-toggle="modal">Fechar</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="Todos-os-Emprestimos">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                            <path d="M384 0H96C60.65 0 32 28.65 32 64v384c0 35.35 28.65 64 64 64h288c35.35 0 64-28.65 64-64V64C448 28.65 419.3 0 384 0zM240 128c35.35 0 64 28.65 64 64s-28.65 64-64 64c-35.34 0-64-28.65-64-64S204.7 128 240 128zM336 384h-192C135.2 384 128 376.8 128 368C128 323.8 163.8 288 208 288h64c44.18 0 80 35.82 80 80C352 376.8 344.8 384 336 384zM496 64H480v96h16C504.8 160 512 152.8 512 144v-64C512 71.16 504.8 64 496 64zM496 192H480v96h16C504.8 288 512 280.8 512 272v-64C512 199.2 504.8 192 496 192zM496 320H480v96h16c8.836 0 16-7.164 16-16v-64C512 327.2 504.8 320 496 320z"></path>
+                        </svg>&nbsp;Emprestimos</h4><button class="btn-close" aria-label="Close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-cols-1" id="card-todos-os-emprestimos">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="lista-livros" class="mt-5">
+        <div class="toast fade hide" role="alert" id="toast-1">
+            <div class="toast-header"><img class="me-2"><strong class="me-auto">Title</strong><small>10 min ago</small><button class="btn-close ms-2 mb-1 close" type="button" aria-label="Close" data-bs-dismiss="toast"></button></div>
+            <div class="toast-body" role="alert">
+                <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+            </div>
+        </div>
+        <div class="container" style="height: 700px; overflow-y: scroll;">
+            <div class="row mx-auto">
+                <div class="col-md-12 col-lg-12 mb-5" id="books-list-cards"></div>
+            </div>
+        </div>
+    </section>
+    <section id="lista-leitores" class="mt-5">
+        <div class="container" style="height: 700px; overflow-y: scroll;">
+            <div class="row mx-auto">
+                <div class="col-md-12 col-lg-12 mb-5" id="leitores-lista"></div>
+            </div>
+        </div>
+    </section>
+    <script>
+        window.jQuery = window.$ = require('jquery');
+    </script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="nav.js"></script>
+    <script src="assets/bootstrap-select.min.js"></script>
+</body>
+
+</html>
