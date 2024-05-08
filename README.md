@@ -11,4 +11,4 @@ Uma solução Open source para Bibliotecas de livros com design minimalista!
 
 Execute o arquivo .exe localizado em algum lugar da pasta do projeto
 
-![ICON]()
+![ICON](https://github.com/quiradon/Book-Database-Software/blob/main/icon.png?raw=true)
