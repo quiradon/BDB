@@ -1,4 +1,5 @@
 const {app, BrowserWindow, shell} = require('electron')
+
 const express = require('./express'); 
 let mainWindow;
 let path = require('path');
@@ -17,7 +18,7 @@ app.on('ready', () => {
         minWidth: 1000,
         titleBarStyle: "Kraken Book DB",
         titleBarOverlay: true,
-        icon : __dirname + '/icon.png',
+        icon: path.join(__dirname, 'icon.png'),
         
         autoHideMenuBar: true,
     });
